@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLeads, deleteLead } from '../../actions/leads';
+import LeadRow from './lead_row';
 
 class Leads extends Component {
 
@@ -18,7 +19,7 @@ class Leads extends Component {
     render() {
 
         let {leads} = this.props;
-        if(this.props.leads.length == 0){
+        if(!this.props.leads){
             return (
                 <Fragment>
                     <i className="fas fa-circle-notch fa-4x fa-spin"></i>
@@ -35,24 +36,12 @@ class Leads extends Component {
                             <th>Name</th>
                             <th>Email</th>
                             <th>Messge</th>
-                            <th />
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {leads.map((lead, index) => (
-                            <tr key={lead.id}>
-                                <td>{index + 1}</td>
-                                <td>{lead.name}</td>
-                                <td>{lead.email}</td>
-                                <td>{lead.message}</td>
-                                <td>
-                                    <button onClick={() => this.props.deleteLead(lead.id)} className="btn btn-danger btn-sm">
-                                        <i className="far fa-times-circle"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        )
-                    )}
+                        {leads.map((lead, index) => <LeadRow key={lead.id} lead={lead} index={index} deleteLead={this.props.deleteLead} />)}
                     </tbody>
                 </table>
             </Fragment>

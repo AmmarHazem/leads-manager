@@ -1,12 +1,33 @@
-import { GET_LEADS, DELETE_LEAD, CREATE_LEAD } from '../actions/types';
+import { GET_LEADS, DELETE_LEAD, CREATE_LEAD, UPDATE_LEAD, STOP_LOADING, LOADING } from '../actions/types';
 
 const initialState = {
-    leads: [],
+    leads: null,
+    isLoading: false,
 }
 
 const leadsReducers = (state = initialState, action) => {
     let {payload} = action;
     switch(action.type){
+        case LOADING:
+            return Object.assign({}, state, {
+                isLoading: true,
+            });
+        case STOP_LOADING:
+            return Object.assign({}, state, {
+                isLoading: false,
+            });
+        case UPDATE_LEAD:
+            let {leads} = state;
+            let lewLeads = leads.map(lead => {
+                if(lead.id == action.payload.id)
+                {
+                    return action.payload;
+                }
+                return lead;
+            });
+            return Object.assign({}, state, {
+                leads: lewLeads,
+            });
         case CREATE_LEAD:
             return Object.assign({}, state, {
                 leads: [ action.payload, ...state.leads],

@@ -20,13 +20,20 @@ class Form extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.createLead(this.state);
+        // this.setState({
+        //     name: '',
+        //     email: '',
+        //     message: '',
+        // });
     }
 
     render() {
         return (
-            <Fragment>
-                <h2>Add New Lead</h2>
-                <div className="card card-body my-2">
+            <div className="card mt-3 mb-2">
+                <div className="card-header">
+                    <h2>Add New Lead</h2>
+                </div>
+                <div className="card-body">
                     <form onSubmit={this.handleSubmit}>
                         <div className="row">
                             <div className="col-6 form-group">
@@ -63,14 +70,14 @@ class Form extends Component {
                                 />
                             </div>
                             <div className="col-12">
-                                <button type="submit" className="btn btn-success btn-sm">
+                                <button type="submit" className="btn btn-primary btn-sm">
                                     Save
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
-            </Fragment>
+            </div>
         )
     }
 }

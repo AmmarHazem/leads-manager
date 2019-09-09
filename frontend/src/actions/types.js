@@ -1,3 +1,9 @@
 export const GET_LEADS = 'GET_LEADS';
 export const DELETE_LEAD = 'DELETE_LEAD';
 export const CREATE_LEAD = 'CREATE_LEAD';
+export const UPDATE_LEAD = 'UPDATE_LEAD';
+export const LOADING = 'LOADING';
+export const STOP_LOADING = 'STOP_LOADING';
+export const GET_ERRORS = 'GET_ERRORS';
+export const GET_MESSAGES = 'GET_MESSAGES';
+export const CREATE_MESSAGE = 'CREATE_MESSAGES';

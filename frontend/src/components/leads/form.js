@@ -13,6 +13,7 @@ class Form extends Component {
         name: '',
         email: '',
         message: '',
+        leedsCount: this.props.leads.length,
     }
 
     handleChange = e => this.setState({[e.target.name]: e.target.value,})
@@ -20,14 +21,20 @@ class Form extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.createLead(this.state);
-        // this.setState({
-        //     name: '',
-        //     email: '',
-        //     message: '',
-        // });
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.leads.length < this.props.leads.length){
+            this.setState({
+                name: '',
+                email: '',
+                message: '',
+            });
+        }
     }
 
     render() {
+        console.log(this.props.leads.length);
         return (
             <div className="card mt-3 mb-2">
                 <div className="card-header">
@@ -82,4 +89,10 @@ class Form extends Component {
     }
 }
 
-export default connect(null, { createLead })(Form);
+const mapStateToProps = state => {
+    return {
+        leads: state.leads.leads,
+    }
+}
+
+export default connect(mapStateToProps, { createLead })(Form);

@@ -1,7 +1,7 @@
 import { GET_LEADS, DELETE_LEAD, CREATE_LEAD, UPDATE_LEAD, STOP_LOADING, LOADING } from '../actions/types';
 
 const initialState = {
-    leads: null,
+    leads: [],
     isLoading: false,
 }
 

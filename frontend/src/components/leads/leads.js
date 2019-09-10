@@ -18,14 +18,14 @@ class Leads extends Component {
 
     render() {
 
-        let {leads} = this.props;
-        if(!this.props.leads){
+        if(this.props.isLoading){
             return (
-                <Fragment>
+                <div className="d-flex justify-content-center align-items-center mt-3">
                     <i className="fas fa-circle-notch fa-4x fa-spin"></i>
-                </Fragment>
+                </div>
             )
         }
+        let {leads} = this.props;
         return (
             <Fragment>
                 <h2>Leads</h2>
@@ -52,6 +52,7 @@ class Leads extends Component {
 const mapStateToProps = state => {
     return {
         leads: state.leads.leads,
+        isLoading: state.leads.isLoading,
     }
 }
 

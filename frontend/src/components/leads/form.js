@@ -34,7 +34,7 @@ class Form extends Component {
     }
 
     render() {
-        console.log(this.props.leads.length);
+
         return (
             <div className="card mt-3 mb-2">
                 <div className="card-header">
@@ -77,8 +77,8 @@ class Form extends Component {
                                 />
                             </div>
                             <div className="col-12">
-                                <button type="submit" className="btn btn-primary btn-sm">
-                                    Save
+                                <button disabled={this.props.isLoading} type="submit" className="btn btn-primary btn-sm">
+                                    {this.props.isLoading ? 'Loading...' : 'Save'}
                                 </button>
                             </div>
                         </div>
@@ -92,6 +92,7 @@ class Form extends Component {
 const mapStateToProps = state => {
     return {
         leads: state.leads.leads,
+        isLoading: state.leads.isLoading,
     }
 }
 

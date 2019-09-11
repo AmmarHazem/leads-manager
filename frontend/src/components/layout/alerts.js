@@ -22,6 +22,9 @@ class Alerts extends Component {
             if(errors.msg.message){
                 this.props.alert.error(`Message: ${errors.msg.message.join()}`);
             }
+            if(errors.msg.detail){
+                this.props.alert.error(errors.msg.detail)
+            }
         }
 
         if(prevProps.messages !== this.props.messages){

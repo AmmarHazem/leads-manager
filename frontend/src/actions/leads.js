@@ -3,7 +3,7 @@ import axios from 'axios';
 import { GET_LEADS, DELETE_LEAD, CREATE_LEAD, UPDATE_LEAD, LOADING, STOP_LOADING, GET_ERRORS } from './types';
 import { getMessages } from './messages';
 
-function handleErrors(e, dispatch){
+export function handleErrors(e, dispatch){
     try{
         let errors = {
             msg: e.response.data,

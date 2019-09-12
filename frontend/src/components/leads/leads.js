@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getLeads, deleteLead } from '../../actions/leads';
 import LeadRow from './lead_row';
+import Spinner from '../common/spinner';
 
 class Leads extends Component {
 
@@ -20,9 +21,7 @@ class Leads extends Component {
 
         if(this.props.isLoading){
             return (
-                <div className="d-flex justify-content-center align-items-center mt-3">
-                    <i className="fas fa-circle-notch fa-4x fa-spin"></i>
-                </div>
+                <Spinner />
             )
         }
         let {leads} = this.props;

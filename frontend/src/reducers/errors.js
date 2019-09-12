@@ -2,7 +2,7 @@ import { GET_ERRORS } from '../actions/types';
 
 const initialState = {
     msg: {},
-    state: null,
+    status: null,
 }
 
 const errorsReducer = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const errorsReducer = (state = initialState, action) => {
         case GET_ERRORS:
             return Object.assign({}, state, {
                 msg: action.payload.msg,
-                state: action.payload.state,
+                status: action.payload.status,
             });
 
         default:

@@ -11,7 +11,7 @@ class Alerts extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.errors !== this.props.errors){
+        if(prevProps.errors != this.props.errors){
             let { errors } = this.props;
             if(errors.msg.name){
                 this.props.alert.error(`Name: ${errors.msg.name.join()}`);
@@ -25,9 +25,15 @@ class Alerts extends Component {
             if(errors.msg.detail){
                 this.props.alert.error(errors.msg.detail)
             }
+            if(errors.msg.username){
+                this.props.alert.error(`${errors.msg.username}`);
+            }
+            if(errors.msg.non_field_errors){
+                this.props.alert.error(errors.msg.non_field_errors);
+            }
         }
 
-        if(prevProps.messages !== this.props.messages){
+        if(prevProps.messages != this.props.messages){
             let {messages} = this.props
             if(messages.leadDeleted){
                 this.props.alert.success(messages.leadDeleted);
@@ -37,6 +43,12 @@ class Alerts extends Component {
             }
             if(messages.leadUpdated){
                 this.props.alert.success(messages.leadUpdated);
+            }
+            if(messages.loggedIn){
+                this.props.alert.success(messages.loggedIn);
+            }
+            if(messages.registerSuccess){
+                this.props.alert.success(messages.registerSuccess);
             }
         }
     }

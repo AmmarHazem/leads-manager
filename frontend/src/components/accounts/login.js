@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class Register extends Component {
+import { loginUser } from '../../actions/auth';
+
+class Login extends Component {
+
+    static propTypes = {
+        loginUser: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool,
+    }
 
     state = {
         username: '',
@@ -10,12 +19,16 @@ export default class Register extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        console.log('--- register submit ');
+        this.props.loginUser(this.state);
     }
 
     handleChange = e => this.setState({[e.target.name]: e.target.value});
 
     render() {
+
+        if(this.props.isAuthenticated){
+            return <Redirect to="/" />
+        }
 
         let {username, password} = this.state;
         return (
@@ -29,6 +42,7 @@ export default class Register extends Component {
                             <form onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                     <input
+                                        type="text"
                                         className="form-control"
                                         placeholder="Username"
                                         name="username"
@@ -38,6 +52,7 @@ export default class Register extends Component {
                                 </div>
                                 <div className="form-group">
                                     <input
+                                        type="password"
                                         className="form-control"
                                         placeholder="Password"
                                         name="password"
@@ -60,3 +75,11 @@ export default class Register extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+    }
+}
+
+export default connect(mapStateToProps, { loginUser })(Login)

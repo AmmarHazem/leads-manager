@@ -1,4 +1,4 @@
-import { GET_ERRORS } from '../actions/types';
+import { SHOW_ERRORS } from '../actions/types';
 
 const initialState = {
     msg: {},
@@ -7,7 +7,7 @@ const initialState = {
 
 const errorsReducer = (state = initialState, action) => {
     switch(action.type){
-        case GET_ERRORS:
+        case SHOW_ERRORS:
             return Object.assign({}, state, {
                 msg: action.payload.msg,
                 status: action.payload.status,

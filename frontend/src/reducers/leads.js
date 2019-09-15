@@ -1,4 +1,4 @@
-import { GET_LEADS, DELETE_LEAD, CREATE_LEAD, UPDATE_LEAD, STOP_LOADING, LOADING } from '../actions/types';
+import { GET_LEADS, DELETE_LEAD, CREATE_LEAD, UPDATE_LEAD, STOP_LOADING, LOADING, CLEAR_LEADS } from '../actions/types';
 
 const initialState = {
     leads: [],
@@ -8,6 +8,10 @@ const initialState = {
 const leadsReducers = (state = initialState, action) => {
     let {payload} = action;
     switch(action.type){
+        case CLEAR_LEADS:
+            return Object.assign({}, state, {
+                leads: [],
+            });
         case LOADING:
             return Object.assign({}, state, {
                 isLoading: true,

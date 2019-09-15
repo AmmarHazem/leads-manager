@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class Register extends Component {
+import { registerUser } from '../../actions/auth';
+import Spinner from '../common/spinner';
+
+class Register extends Component {
+
+    static propTypes = {
+        registerUser: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool.isRequired,
+    }
 
     state = {
         username: '',
@@ -12,12 +22,16 @@ export default class Register extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        console.log('--- register submit ');
+        this.props.registerUser(this.state);
     }
 
     handleChange = e => this.setState({[e.target.name]: e.target.value});
 
     render() {
+
+        if(this.props.isAuthenticated){
+            return <Redirect to="/" />
+        }
 
         let {username, password2, password, email} = this.state;
         return (
@@ -50,6 +64,7 @@ export default class Register extends Component {
                                 <div className="form-group">
                                     <input
                                         className="form-control"
+                                        type="password"
                                         placeholder="Password"
                                         name="password"
                                         value={password}
@@ -59,13 +74,16 @@ export default class Register extends Component {
                                 <div className="form-group">
                                     <input
                                         className="form-control"
+                                        type="password"
                                         placeholder="Confirm Password"
                                         name="password2"
                                         value={password2}
                                         onChange={this.handleChange}
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary">Register</button>
+                                <button disabled={this.props.isLoading} type="submit" className="btn btn-primary">
+                                    {this.props.isLoading ? <Spinner /> : 'Register'}
+                                </button>
                                 <p>
                                     Already have an Account
                                     <Link to="/login" className="ml-2">Login</Link>
@@ -78,3 +96,12 @@ export default class Register extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        isLoading: state.auth.isLoading,
+    }
+}
+
+export default connect(mapStateToProps, { registerUser })(Register)

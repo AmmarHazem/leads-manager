@@ -6,9 +6,7 @@ import Spinner from './spinner';
 const PrivateRoute = ({component: Component, auth, ...rest}) => (
     <Route {...rest} render={props => {
         if(auth.isLoading){
-            return (
-                <Spinner />
-            )
+            return <Spinner />
         }
         else if(!auth.isAuthenticated){
             return <Redirect to="/login"/>
